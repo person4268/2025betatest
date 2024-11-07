@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +21,7 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  AHRS ahrs = new AHRS(NavXComType.kMXP_SPI);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -37,7 +41,9 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    ahrs.getAngle();
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -101,4 +107,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {}
+
+  @Override
+  public void endCompetition() {
+    super.endCompetition();
+  }
 }
