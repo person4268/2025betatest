@@ -34,7 +34,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    test.configure(new SparkFlexConfig().inverted(true), ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    SparkFlexConfig config = new SparkFlexConfig();
+    config.signals.absoluteEncoderPositionPeriodMs(20);
+    test.configure(config, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   /**
