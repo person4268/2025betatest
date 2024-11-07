@@ -7,7 +7,11 @@ package frc.robot;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 
+import edu.wpi.first.hal.SimDevice;
+import edu.wpi.first.hal.SimDouble;
+import edu.wpi.first.hal.simulation.SimDeviceDataJNI;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,7 +25,9 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  AHRS ahrs = new AHRS(NavXComType.kMXP_SPI);
+  AHRS ahrs;
+  int device;
+  SimDouble angle;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +37,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    ahrs = new AHRS(NavXComType.kMXP_SPI);
+    device = SimDeviceDataJNI.getSimDeviceHandle("navx-Sensor[0]");
+    angle = new SimDouble(SimDeviceDataJNI.getSimValueHandle(device, "Yaw"));
   }
 
   /**
