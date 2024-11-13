@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     ahrs = new AHRS(NavXComType.kMXP_SPI);
-    device = SimDeviceDataJNI.getSimDeviceHandle("navx-Sensor[0]");
+    device = SimDeviceDataJNI.getSimDeviceHandle("navX-Sensor[4]");
     angle = new SimDouble(SimDeviceDataJNI.getSimValueHandle(device, "Yaw"));
   }
 
@@ -52,6 +52,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     ahrs.getAngle();
+    angle.set(5);
   }
 
   /**
